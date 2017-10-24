@@ -40,15 +40,17 @@ export default class App extends React.Component {
 class MyScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {color: '#ff0000'};
+    this.state = {color: '#ff00ff'};
   }
   navigateToNext() {
-    this.setState({color:'#abcdef'})
+    this.setState(previousState => {
+      return { color: '#00ff00' };
+    });
   }
   render() {
     return (
       <View style={styles.container} backgroundColor={this.state.color}>
-        <Button title={"Click here"} onPress={() => this.navigateToNext}/>
+        <Button title={"Click here"} onPress={() => this.navigateToNext()}/>
       </View>
     )
   }
