@@ -43,13 +43,14 @@ class MyScene extends React.Component {
     this.state = {color: '#ff00ff'};
   }
   navigateToNext() {
-    this.setState(previousState => {
-      return { color: '#00ff00' };
+    this.props.navigator.push({
+        component: MyScene,
+        title: 'Test2',
     });
   }
   render() {
     return (
-      <View style={styles.container} backgroundColor={this.state.color}>
+      <View style={[styles.container, {backgroundColor: this.state.color}]} >
         <Button title={"Click here"} onPress={() => this.navigateToNext()}/>
       </View>
     )
@@ -59,6 +60,7 @@ class MyScene extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
   }
