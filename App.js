@@ -62,16 +62,15 @@ class WeatherView extends React.Component {
     super(props);
     this.state = {text: 'Loading'};
   }
-  componentDidMount() {
-    let url = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.017578/lat/59.243414/data.json"
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => {
-        this.setState({
-          text: json.approvedTime,
-        });
-      })
-      .done();
+  async componentDidMount() {
+    try {
+      var url = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.017578/lat/59.243414/data.json"
+      var data = await fetch(url)
+      var json = await data.json()
+      this.setState({ text: json.approvedTime, });
+    } catch(error) {
+      throw error
+    }
   }
   render() {
     return (
