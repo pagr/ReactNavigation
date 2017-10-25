@@ -44,7 +44,7 @@ class MyScene extends React.Component {
   }
   navigateToNext() {
     this.props.navigator.push({
-        component: MyScene,
+        component: WeatherView,
         title: 'Test2',
     });
   }
@@ -52,6 +52,31 @@ class MyScene extends React.Component {
     return (
       <View style={[styles.container, {backgroundColor: this.state.color}]} >
         <Button title={"Click here"} onPress={() => this.navigateToNext()}/>
+      </View>
+    )
+  }
+}
+
+class WeatherView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {text: 'Loading'};
+  }
+  componentDidMount() {
+    let url = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.017578/lat/59.243414/data.json"
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({
+          text: json.approvedTime,
+        });
+      })
+      .done();
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>{this.state.text}</Text>
       </View>
     )
   }
